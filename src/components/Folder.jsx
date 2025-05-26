@@ -1,19 +1,37 @@
 import React, { useState } from "react";
 import "./Folder.css";
 
-const Folder = ({ explorer, handleInsertNode }) => {
-  const [expand, setExpand] = useState(false);
+const Folder = ({
+  explorer,
+  handleInsertNode,
+  expandedPath,
+  setExpandedPath,
+  currentPath
+}) => {
   const [showInput, setShowInput] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const toggleExpand = () => {
-    setExpand((prev) => !prev);
+  const fullPath = [...currentPath, explorer.id];
+
+  const isExpanded =
+    expandedPath.length >= fullPath.length &&
+    fullPath.every((id, idx) => expandedPath[idx] === id);
+
+  const toggleExpand = (e) => {
+    e.stopPropagation();
+    if (isExpanded) {
+      // Collapse this folder and all children
+      setExpandedPath(expandedPath.slice(0, fullPath.length - 1));
+    } else {
+      // Expand this folder only
+      setExpandedPath(fullPath);
+    }
   };
 
   const handleAddClick = (e) => {
-    e.stopPropagation(); // Prevent accordion toggle
+    e.stopPropagation();
     setShowInput(true);
-    setExpand(true); // auto-expand when adding
+    setExpandedPath(fullPath); // expand only this path
   };
 
   const handleInputKeyDown = (e) => {
@@ -39,7 +57,7 @@ const Folder = ({ explorer, handleInsertNode }) => {
         <button className="folder__button" onClick={handleAddClick}>+ Add</button>
       </div>
 
-      <div className={`folder__content ${expand ? "folder__content--expanded" : ""}`}>
+      <div className={`folder__content ${isExpanded ? "folder__content--expanded" : ""}`}>
         {showInput && (
           <div className="folder__input-wrapper">
             <input
@@ -55,9 +73,17 @@ const Folder = ({ explorer, handleInsertNode }) => {
           </div>
         )}
 
-        {explorer.items?.map((item) => (
-          <Folder key={item.id} explorer={item} handleInsertNode={handleInsertNode} />
-        ))}
+        {isExpanded &&
+          explorer.items?.map((item) => (
+            <Folder
+              key={item.id}
+              explorer={item}
+              handleInsertNode={handleInsertNode}
+              expandedPath={expandedPath}
+              setExpandedPath={setExpandedPath}
+              currentPath={fullPath}
+            />
+          ))}
       </div>
     </div>
   );

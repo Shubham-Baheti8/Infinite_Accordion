@@ -12,6 +12,17 @@ const explorer = {
           items: []
         }
       ]
+    },
+    {
+      id: "4",
+      name: "campaign4",
+      items: [
+        {
+          id: "5",
+          name: "schedule5",
+          items: []
+        }
+      ]
     }
   ]
 };

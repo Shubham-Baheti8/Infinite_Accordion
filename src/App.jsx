@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import Folder from './components/Folder';
-import explorer from './data/folderData';
-import useTraverseTree from './hooks/use-traverse-tree';
-import './App.css';
+import { useState } from "react";
+import Folder from "./components/Folder";
+import explorer from "./data/folderData";
+import useTraverseTree from "./hooks/use-traverse-tree";
+import "./App.css";
 
 function App() {
   const [explorerData, setExplorerData] = useState(explorer);
+  const [expandedPath, setExpandedPath] = useState([]);
   const { insertNode } = useTraverseTree();
 
   const handleInsertNode = (folderId, itemName) => {
@@ -15,7 +16,13 @@ function App() {
 
   return (
     <div className="app">
-      <Folder explorer={explorerData} handleInsertNode={handleInsertNode} />
+      <Folder
+        explorer={explorerData}
+        handleInsertNode={handleInsertNode}
+        expandedPath={expandedPath}
+        setExpandedPath={setExpandedPath}
+        currentPath={[]}
+      />
     </div>
   );
 }
