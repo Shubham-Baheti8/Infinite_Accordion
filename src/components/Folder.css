@@ -1,0 +1,123 @@
+:root {
+  --folder-padding-left: 0.75rem;
+  --folder-max-width: 25rem; 
+
+  --color-bg: #f3f4f6;
+  --color-bg-hover: #e5e7eb;
+  --color-border: #d2eec5;
+  --color-icon: #006943;
+  --color-button: #006943;
+  --color-button-hover: #54b026;
+  --color-button-text: white;
+
+  --color-name: #1f2937;
+  --color-input-border: #d3f5c2;
+  --color-input-border-focus: #f9fff6;
+
+  --font-size-icon: 1rem;
+  --font-size-name: 0.875rem; 
+  --font-size-button: 0.8125rem; 
+  --font-size-input: 0.875rem; 
+
+  --radius: 0.375rem; 
+  --radius-button: 0.3125rem; 
+  --shadow: 0 0.125rem 0.375rem rgba(0, 0, 0, 0.05); 
+  --transition-speed: 0.2s;
+  --transition-button: 0.3s;
+
+  --gap: 0.625rem; 
+  --padding-y: 0.625rem; 
+  --padding-x: 0.75rem; 
+  --input-padding: 0.375rem 0.625rem;
+}
+
+.folder {
+  padding-left: var(--folder-padding-left);
+  display: flex;
+  flex-direction: column;
+}
+
+.folder__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--color-bg);
+  padding: var(--padding-y) var(--padding-x);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  cursor: pointer;
+  transition: background-color var(--transition-speed) ease;
+  max-width: var(--folder-max-width);
+  overflow: hidden;
+  word-break: break-word;
+}
+
+.folder__header:hover {
+  background-color: var(--color-bg-hover);
+}
+
+.folder__info {
+  display: flex;
+  align-items: center;
+  gap: var(--gap);
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+.folder__icon {
+  font-size: var(--font-size-icon);
+  color: var(--color-icon);
+}
+
+.folder__name {
+  font-weight: 600;
+  font-size: var(--font-size-name);
+  color: var(--color-name);
+  white-space: normal;
+  overflow-wrap: break-word;
+}
+
+.folder__button {
+  background-color: var(--color-button);
+  color: var(--color-button-text);
+  border: none;
+  padding: 0.375rem 0.75rem; 
+  font-size: var(--font-size-button);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  transition: background-color var(--transition-button) ease;
+}
+
+.folder__button:hover {
+  background-color: var(--color-button-hover);
+}
+
+.folder__content {
+  display: none;
+  margin-top: 0.3125rem; 
+  padding-left: 1rem;
+  border-left: 0.125rem dashed var(--color-border); 
+}
+
+.folder__content--expanded {
+  display: block;
+}
+
+.folder__input-wrapper {
+  margin-top: 0.375rem; 
+}
+
+.folder__input {
+  padding: var(--input-padding);
+  border: 1px solid var(--color-input-border);
+  border-radius: var(--radius-button);
+  width: 100%;
+  max-width: 18.75rem; 
+  font-size: var(--font-size-input);
+  outline: none;
+  transition: border var(--transition-speed);
+}
+
+.folder__input:focus {
+  border-color: var(--color-input-border-focus);
+}
